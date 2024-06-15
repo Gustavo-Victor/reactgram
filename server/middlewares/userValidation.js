@@ -51,17 +51,11 @@ export function userLoginValidation() {
         body("email")
             .isString()
             .withMessage("Email is required")
-            .isEmail()
-            .withMessage("Email is invalid")
-            .isLength({ min: 11, max: 60 })
-            .withMessage("The email must have a minimum of 11 characters and a maximum of 60")
 
     const passwordValidation =
         body("password")
             .isString()
             .withMessage("Password is required")
-            .isLength({ min: 5, max: 15 })
-            .withMessage("Password must have a mininum of 5 characters and a maxium of 15");
 
     return [
         emailValidation,

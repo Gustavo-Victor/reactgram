@@ -41,10 +41,33 @@ export default function Register() {
             <h2>ReactGram</h2>
             <p className="subtitle">Register to show your friends{"'"} photos</p>
             <form id="register-form" onSubmit={handleSubmit}>
-                <input type="text" name="name" id="name" value={user.name || ""} onChange={handleChangeUser} placeholder="Enter your name..." />
-                <input type="email" name="email" id="email" value={user.email || ""} onChange={handleChangeUser} placeholder="Enter your email..." />
-                <input type="password" name="password" id="password" value={user.password || ""} onChange={handleChangeUser} placeholder="Enter your password..." />
-                <input type="password" name="password_confirmation" value={user.password_confirmation || ""} onChange={handleChangeUser} id="password_confirmation" placeholder="Confirm your password..." />
+                <input
+                    type="text"
+                    name="name"
+                    id="name" value={user.name || ""}
+                    onChange={handleChangeUser}
+                    placeholder="Name" />
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={user.email || ""}
+                    onChange={handleChangeUser}
+                    placeholder="Email" />
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={user.password || ""}
+                    onChange={handleChangeUser}
+                    placeholder="Password" />
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    value={user.password_confirmation || ""}
+                    onChange={handleChangeUser}
+                    id="password_confirmation"
+                    placeholder="Password Confirmation" />
 
                 <button
                     disabled={loading}

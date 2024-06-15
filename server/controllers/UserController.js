@@ -19,6 +19,7 @@ export async function login(req, res) {
         res.status(422).json({
             errors: ["Wrong password"]
         });
+        return ;
     }
 
     res.status(200).json({

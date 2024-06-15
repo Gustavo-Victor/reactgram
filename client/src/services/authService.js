@@ -11,7 +11,7 @@ async function register(data) {
         // const data = await response.json();
         // console.log(data);
 
-        if (response) {
+        if(response && "token" in response || "_id" in response) {
             localStorage.setItem("user", JSON.stringify(response));
         }
 
@@ -21,8 +21,20 @@ async function register(data) {
     }
 }
 
-async function login() {
+async function login(data) {
+    const config = requestConfig("POST", data, null, null); 
 
+    try {
+        const response = await fetch(`${api}/users/login`, config)
+            .then(res => res.json())
+            .catch(err => err);
+        if(response && "token" in response) {
+            localStorage.setItem("user", JSON.stringify(response)); 
+        } 
+        return response; 
+    } catch(e) {
+        console.log(e.message);
+    }
 }
 
 async function logout() {
