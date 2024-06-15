@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { reset, registerUser } from "../../../../slices/authSlice";
 import { useSelector, useDispatch } from "react-redux";
-import "../Auth.css"; 
+import Message from "../../../ui/Message";
+import "../Auth.css";
 
 
 export default function Register() {
@@ -12,28 +13,28 @@ export default function Register() {
         password: "",
         password_confirmation: ""
     }
-    const [user, setUser] = useState(initialState || {}); 
+    const [user, setUser] = useState(initialState || {});
 
-    const dispatch = useDispatch(); 
-    const { loading, error, user: authUser, success } = useSelector(state => state.auth); 
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector(state => state.auth);
 
 
     const handleChangeUser = (e) => {
         setUser(prevUser => {
-            return {...prevUser, [e.target.name]: e.target.value}
-        }); 
+            return { ...prevUser, [e.target.name]: e.target.value }
+        });
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault(); 
-        console.log(user); 
-        dispatch(registerUser(user)); 
+        e.preventDefault();
+        console.log(user);
+        dispatch(registerUser(user));
         //setUser(initialState); 
     }
 
     useEffect(() => {
-        dispatch(reset()); 
-    }, [dispatch]); 
+        dispatch(reset());
+    }, [dispatch]);
 
     return (
         <div id="register">
@@ -44,7 +45,13 @@ export default function Register() {
                 <input type="email" name="email" id="email" value={user.email || ""} onChange={handleChangeUser} placeholder="Enter your email..." />
                 <input type="password" name="password" id="password" value={user.password || ""} onChange={handleChangeUser} placeholder="Enter your password..." />
                 <input type="password" name="password_confirmation" value={user.password_confirmation || ""} onChange={handleChangeUser} id="password_confirmation" placeholder="Confirm your password..." />
-                <button type="submit" id="register-form-btn">Register</button>
+
+                <button
+                    disabled={loading}
+                    type="submit"
+                    id="register-form-btn">{loading ? "Loading..." : "Register"}
+                </button>
+                {error && <Message text={error} type="error" />}
             </form>
             <p>Already have an account? <Link to="/login">Click here</Link></p>
         </div>

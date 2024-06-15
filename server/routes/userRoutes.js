@@ -8,7 +8,8 @@ import {
     login,
     readCurrentUser,
     updateUser, 
-    readUsers, 
+    readUsers,
+    deleteUser, 
 } from "../controllers/UserController.js";
 import {
     userCreateValidation,
@@ -26,6 +27,7 @@ userRouter.put("/", checkAuth, userUpdateValidation(), validate, uploadConfig.si
 userRouter.get("/profile", checkAuth, readCurrentUser);
 userRouter.get("/:id", readUserById); 
 userRouter.get("/", checkAuth, readUsers); 
+userRouter.delete("/:id", checkAuth, deleteUser); 
  
 export default userRouter;
 

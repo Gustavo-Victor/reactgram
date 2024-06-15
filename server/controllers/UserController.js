@@ -152,7 +152,26 @@ export async function updateUser(req, res) {
 }
 
 export async function deleteUser(req, res) {
+    const { id } = req.params; 
 
+    if(!id) {
+        res.status(422).json({errors: ["User ID is required."]});
+        return ; 
+    }
+
+    try {
+        const deletedUser = await User.findByIdAndDelete(id); 
+
+        if(!deletedUser) {
+            res.status(404).json({errors: ["User not found"]});
+            return ;
+        }
+
+        res.status(200).json({ deletedUser, message: "User successfully deleted"}); 
+    } catch(e) {
+        console.log(e.message);
+        res.status(422).json({errors: ["Error. Try again later."]});
+    }
 }
 
 

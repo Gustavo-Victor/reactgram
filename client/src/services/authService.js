@@ -14,6 +14,8 @@ async function register(data) {
         if (response) {
             localStorage.setItem("user", JSON.stringify(response));
         }
+
+        return response; 
     } catch (e) {
         console.log(e.message);
     }
