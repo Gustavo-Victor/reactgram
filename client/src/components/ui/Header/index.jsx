@@ -1,3 +1,7 @@
+import { useAuth } from "../../../hooks/useAuth";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { NavLink, Link } from "react-router-dom";
 import {
     BsSearch,
@@ -10,6 +14,9 @@ import "./style.css";
 
 
 export default function Header() {
+    const { authenticated } = useAuth();
+    const { user } = useSelector(state => state.auth);
+
     return (
         <header id="main-header">
             <nav id="nav">
@@ -24,15 +31,39 @@ export default function Header() {
                         placeholder="Type something..." />
                 </form>
                 <ul id="nav-list">
-                    <li>
-                        <NavLink to="/"><BsHouseDoorFill /></NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/login">Login</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/register">Register</NavLink>
-                    </li>
+                    {authenticated ? (
+                        <>
+                            <li>
+                                <NavLink to="/">
+                                    <BsHouseDoorFill />
+                                </NavLink>
+                            </li>
+                            {user && 
+                                <li>
+                                    <NavLink to={`/users/${user._id}`}>
+                                        <BsFillCameraFill />
+                                    </NavLink>
+                                </li>
+                            }
+                            <li>
+                                <NavLink to="/profile">
+                                    <BsFillPersonFill />
+                                </NavLink>
+                            </li>
+                            <li>
+                                <span>Log Out</span>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li>
+                                <NavLink to="/login">Login</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/register">Register</NavLink>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </nav>
         </header>

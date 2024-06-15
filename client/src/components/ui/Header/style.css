@@ -5,7 +5,7 @@
     align-items: center;
     background-color: #000;
     border-bottom: 1px solid #363636;
-    padding: .1rem 1rem;
+    padding: .1rem 1.5rem;
     position: fixed;
     top: 0;
     left: 0;
@@ -16,7 +16,7 @@
 #nav-list {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
 
