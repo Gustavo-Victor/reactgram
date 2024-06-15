@@ -1,0 +1,26 @@
+#edit-profile {
+    border: 1px solid #363636; 
+    background-color: #000;
+    width: 90%; 
+    max-width: 40%;
+    padding: 1.5rem 2rem;
+    margin: 2rem auto; 
+    text-align: center;
+}
+
+#edit-profile .subtitle {
+    color: #ccc; 
+    font-weight: 400;
+}
+
+#edit-profile form textarea {
+    height: auto;
+    min-height: 60px;
+}
+
+.profile-image {
+    width: 150px; 
+    height: 150px; 
+    border-radius: 50%;
+    margin-bottom: 1rem; 
+}

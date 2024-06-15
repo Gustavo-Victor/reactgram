@@ -5,6 +5,7 @@ import About from "./components/pages/About";
 import Login from "./components/pages/Auth/Login";
 import Register from "./components/pages/Auth/Register";
 import NotFound from "./components/pages/NotFound";
+import EditProfile from "./components/pages/EditProfile";
 import Header from "./components/ui/Header";
 import Container from "./components/ui/Container";
 import Footer from "./components/ui/Footer";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={authenticated ? <Navigate to="/" /> : <Login />} />
           <Route path="/register" element={authenticated ? <Navigate to="/" /> : <Register />} />
+          <Route path="/profile" element={authenticated ? <EditProfile /> : <Navigate to="/login" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>

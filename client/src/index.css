@@ -17,14 +17,27 @@ body a {
     color: #fafafa;
 }
 
+h2 {
+    text-align: center;
+    margin-bottom: 1rem; 
+}
+
 body input,
-body button {
+body button,
+body select,
+body textarea {
     border: none;
     outline: none;
 }
 
 body .active {
     font-weight: bold;
+}
+
+.subtitle {
+    font-weight: bold;
+    color: #999;
+    margin-bottom: 1.5rem 
 }
 
 body form {
@@ -42,20 +55,37 @@ label span {
     font-weight: bold;
     margin-bottom: .5rem;
     color: #aaa;
-    font-size: .7rem;
+    font-size: .9rem;
 }
 
-input {
+input, 
+select, 
+textarea {
+    display: block; 
     background-color: #3b3b3b;
     color: #aaa;
-    border: 1px solid #555;
+    border: 1px solid #555 !important;
     border-radius: 2px;
     padding: 10px 8px;
     margin-bottom: .6rem;
+    font-size: 0.9rem; 
+    max-width: 100%;
+    overflow: auto; 
+    font-family: "Roboto", sans-serif;
+    letter-spacing: normal;
+    line-height: normal;
+    font-weight: 400;
 }
 
-input::placeholder {
+input::placeholder, 
+select::placeholder, 
+textarea::placeholder {
     color: #aaa;
+    font-size: 0.9rem;
+    font-family: "Roboto", sans-serif;
+    letter-spacing: normal;
+    line-height: normal;
+    font-weight: 400;
 }
 
 .btn,
@@ -75,7 +105,9 @@ button[type="submit"] {
     margin-top: 1rem;
 }
 
-input:disabled {
+input:disabled, 
+select:disabled, 
+textarea:disabled {
     cursor: not-allowed;
     background-color: #000;
 }
