@@ -14,8 +14,17 @@ export async function readProfile(data, token) {
     }
 }
 
-export async function editProfile() {
+export async function updateProfile(data, token) {
+    const config = requestConfig("PUT", data, token, true); 
 
+    try {
+        const response = await fetch(`${api}/users/`, config)
+            .then(res => res.json())
+            .catch(err => err); 
+        return response; 
+    } catch(e) {
+        console.log(e.message);
+    }
 }
 
 export async function deleteProfile() {
@@ -25,7 +34,7 @@ export async function deleteProfile() {
 
 const userService = {
     readProfile, 
-    editProfile, 
+    updateProfile, 
     deleteProfile
 }; 
 

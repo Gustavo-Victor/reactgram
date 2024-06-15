@@ -16,6 +16,7 @@
 #edit-profile form textarea {
     height: auto;
     min-height: 60px;
+    min-width: 100%;
 }
 
 .profile-image {
