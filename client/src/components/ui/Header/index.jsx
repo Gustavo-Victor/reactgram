@@ -2,6 +2,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logOutUser, reset } from "../../../slices/authSlice";
 import { NavLink, Link } from "react-router-dom";
 import {
     BsSearch,
@@ -16,6 +17,15 @@ import "./style.css";
 export default function Header() {
     const { authenticated } = useAuth();
     const { user } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate(); 
+
+    const handleLogout = () => {
+        dispatch(logOutUser()); 
+        dispatch(reset()); 
+        navigate("/login"); 
+    }
+
 
     return (
         <header id="main-header">
@@ -51,7 +61,7 @@ export default function Header() {
                                 </NavLink>
                             </li>
                             <li>
-                                <span>Log Out</span>
+                                <span onClick={handleLogout}>Log Out</span>
                             </li>
                         </>
                     ) : (
