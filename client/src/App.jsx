@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useAuth } from "./hooks/useAuth";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import Login from "./components/pages/Auth/Login";
@@ -10,16 +11,21 @@ import Footer from "./components/ui/Footer";
 
 
 function App() {
+  const { authenticated, loading } = useAuth();
+
+  if (loading) {
+    return <p>Loading...</p>
+  }
 
   return (
     <Router>
       <Header />
       <Container>
         <Routes>
-          <Route index path="/" element={<Home />} />
+          <Route index path="/" element={authenticated ? <Home /> : <Navigate to="/login" />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={authenticated ? <Navigate to="/" /> : <Login />} />
+          <Route path="/register" element={authenticated ? <Navigate to="/" /> : <Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
