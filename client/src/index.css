@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #121212;
+    color: #fafafa;
+}
+
+body a {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fafafa;
+}
+
+body input,
+body button {
+    border: none;
+    outline: none;
+}
+
+body .active {
+    font-weight: bold;
+}
+
+body form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+label span {
+    font-weight: bold;
+    margin-bottom: .5rem;
+    color: #aaa;
+    font-size: .7rem;
+}
+
+input {
+    background-color: #3b3b3b;
+    color: #aaa;
+    border: 1px solid #555;
+    border-radius: 2px;
+    padding: 10px 8px;
+    margin-bottom: .6rem;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+.btn,
+button,
+input[type="submit"] {
+    background-color: #0094f6;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 8px;
+    font-weight: bold;
+    opacity: .8;
+    font-size: 1rem;
+}
+
+button[type="submit"] {
+    margin-top: 1rem;
+}
+
+input:disabled {
+    cursor: not-allowed;
+    background-color: #000;
+}
+
+.btn:hover,
+button:hover,
+input[type="submit"]:hover {
+    opacity: 1;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+}
+
+.hide {
+    display: none;
+}

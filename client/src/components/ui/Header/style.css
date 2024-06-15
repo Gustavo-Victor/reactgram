@@ -1,0 +1,53 @@
+#nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    border-bottom: 1px solid #363636;
+    padding: .1rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: auto;
+    min-height: 60px;
+}
+
+#nav-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+#nav-list li {
+    list-style-type: none;
+}
+
+#nav-list span {
+    cursor: pointer;
+}
+
+#nav-list svg {
+    font-size: 1.5rem;
+}
+
+#search-form {
+    position: relative;
+    width: 20%;
+}
+
+#search-form svg {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 0.9rem;
+}
+
+#search-form input {
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 0.9rem;
+
+}
