@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userService from "../services/userService";
 
@@ -18,6 +19,14 @@ export const readUserProfile = createAsyncThunk("user/profile", async (user, thu
     //     return thunkAPI.rejectWithValue(data.errors[0]);
     // }
     return data;
+});
+
+export const readUserDetails = createAsyncThunk("user/get", async(id, thunkAPI) => {
+    const data = await userService.readProfileDetails(id); 
+    // if(data.errors) {
+    //     return thunkAPI.rejectWithValue(data.errors[0]);
+    // }
+    return data;  
 });
 
 export const updateUserProfile = createAsyncThunk("user/update", async(user, thunkAPI) => {
@@ -67,6 +76,18 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.success = true;
                 state.message = "User successfully updated"
+            })
+            .addCase(readUserDetails.pending, (state) => {
+                state.error = false;
+                state.loading = true;
+                state.user = {}; 
+                state.success = false; 
+            })
+            .addCase(readUserDetails.fulfilled, (state, action) => {
+                state.user = action.payload;
+                state.error = null;
+                state.loading = false;
+                state.success = true;
             })
     }
 });
