@@ -26,9 +26,19 @@ async function readUserPhotos(id, token) {
     }
 }
 
-// async function updatePhoto() {
+async function updatePhoto(id, data, token) {
+    const config = requestConfig("PUT", data, token, null);
+    
+    try {
+        const response = await fetch(`${api}/photos/${id}`, config)
+            .then(res => res.json()) 
+            .catch(err => err)
+        return response; 
+    } catch(e) {
+        console.log(e.message);
+    }
 
-// }
+}
 
 async function deletePhoto(id, token) {
     const config = requestConfig("DELETE", null, token, null); 
@@ -63,6 +73,7 @@ const photoService = {
     createPhoto,
     readUserPhotos, 
     deletePhoto,
+    updatePhoto,
 }
 
 export default photoService; 

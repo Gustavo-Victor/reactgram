@@ -107,6 +107,7 @@ button[type="submit"] {
 
 input:disabled, 
 select:disabled, 
+button:disabled,
 textarea:disabled {
     cursor: not-allowed;
     background-color: #000;

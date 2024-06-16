@@ -7,7 +7,8 @@ import {
     createUserPhoto,
     readUserPhotos,
     resetMessage,
-    deleteUserPhoto
+    deleteUserPhoto,
+    updateUserPhoto
 } from "../../../slices/photoSlice";
 import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 import Message from "../../ui/Message";
@@ -31,6 +32,9 @@ export default function Profile() {
 
     const [title, setTitle] = useState("");
     const [image, setImage] = useState("");
+    const [editId, setEditId] = useState(""); 
+    const [editTitle, setEditTitle] = useState(""); 
+    const [editImage, setEditImage] = useState(""); 
 
     const clearMessage = () => {
         setTimeout(() => {
@@ -64,6 +68,39 @@ export default function Profile() {
         setImage("");
 
         clearMessage(); 
+    }
+
+    const toggleForms = () => {
+        newPhotoForm.current.classList.toggle("hide");
+        editPhotoForm.current.classList.toggle("hide");  
+    }
+
+    const handleEditForm = (photo) => {
+        if(editPhotoForm.current.classList.contains("hide")) {
+            toggleForms();  
+        }
+        setEditId(photo._id); 
+        setEditTitle(photo.title); 
+        setEditImage(photo.src); 
+    }
+
+    const handleEditPhoto = (e) => {
+        e.preventDefault(); 
+
+        const photoObj = {
+            _id: editId,
+            title: editTitle,
+        }; 
+        dispatch(updateUserPhoto(photoObj)); 
+        clearMessage(); 
+    }
+
+    const handleCancelEdit = () => {
+        if(newPhotoForm.current.classList.contains("hide")) {
+            toggleForms();  
+        }
+        setEditTitle("");
+        setEditImage(""); 
     }
 
     const handleDeletePhoto = (id) => {
@@ -127,6 +164,34 @@ export default function Profile() {
                             </button>
                         </form>
                     </div>
+                    <div className="edit-photo hide" ref={editPhotoForm}>
+                        <p>Editing: </p>
+                        {editImage && (
+                            <img 
+                                alt={editTitle}
+                                src={`${uploads}/photos/${editImage}`}
+                                 />
+                        )}
+                        <form onSubmit={handleEditPhoto}>
+                            <input 
+                                type="text"
+                                placeholder="Enter a title"
+                                value={editTitle || ""}
+                                onChange={(e) => setEditTitle(e.target.value)}
+                                 />
+                            <button 
+                                type="submit" 
+                                disabled={photoLoading}
+                                >{photoLoading ? "Loading..." : "Edit"}
+                            </button>
+                            <button 
+                                type="reset"
+                                onClick={handleCancelEdit} 
+                                className="cancel-btn">
+                                    Cancel
+                            </button>
+                        </form>
+                    </div>
                     {photoError && <Message type="error" text={photoError} />}
                     {photoMessage && <Message type="success" text={photoMessage} />}
                 </>
@@ -145,7 +210,7 @@ export default function Profile() {
                             {id === currentUser._id ? (
                                 <div className="actions">
                                     <Link to={`/photos/${photo._id}`}><BsFillEyeFill /></Link>
-                                    <BsPencilFill />
+                                    <BsPencilFill onClick={() => handleEditForm(photo)} />
                                     <BsXLg onClick={() => handleDeletePhoto(photo._id)} />
                                 </div>
                             ) : (
