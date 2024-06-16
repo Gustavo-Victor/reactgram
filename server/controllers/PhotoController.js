@@ -160,7 +160,7 @@ export async function deletePhoto(req, res) {
         }
 
         res.status(200).json({
-            photo,
+            _id: photo._id,
             message: "Photo successfully deleted",
         });
     } catch (e) {

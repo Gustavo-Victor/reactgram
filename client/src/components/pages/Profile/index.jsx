@@ -3,8 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { uploads } from "../../../utils/config";
 import { useParams, Link } from "react-router-dom";
 import { readUserDetails } from "../../../slices/userSlice";
-import { createUserPhoto, readUserPhotos, resetMessage } from "../../../slices/photoSlice";
-import { BsFillEyeFill, BsPencil, BsXLg } from "react-icons/bs";
+import {
+    createUserPhoto,
+    readUserPhotos,
+    resetMessage,
+    deleteUserPhoto
+} from "../../../slices/photoSlice";
+import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 import Message from "../../ui/Message";
 import "./style.css";
 
@@ -26,6 +31,12 @@ export default function Profile() {
 
     const [title, setTitle] = useState("");
     const [image, setImage] = useState("");
+
+    const clearMessage = () => {
+        setTimeout(() => {
+            dispatch(resetMessage());
+        }, 2000);
+    }
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -52,13 +63,12 @@ export default function Profile() {
         setTitle("");
         setImage("");
 
+        clearMessage(); 
+    }
 
-        setTimeout(() => {
-            dispatch(resetMessage());
-        }, 2000);
-
-
-        console.log(photoObj);
+    const handleDeletePhoto = (id) => {
+        dispatch(deleteUserPhoto(id)); 
+        clearMessage(); 
     }
 
     useEffect(() => {
@@ -128,13 +138,16 @@ export default function Profile() {
                         <div key={photo._id} className="photo">
                             {photo.src && (
                                 <img
-                                    width={100}
                                     src={`${uploads}/photos/${photo.src}`}
                                     alt={photo.title}
                                     title={photo.title} />
                             )}
                             {id === currentUser._id ? (
-                                <p>Actions</p>
+                                <div className="actions">
+                                    <Link to={`/photos/${photo._id}`}><BsFillEyeFill /></Link>
+                                    <BsPencilFill />
+                                    <BsXLg onClick={() => handleDeletePhoto(photo._id)} />
+                                </div>
                             ) : (
                                 <Link className="btn" to={`/photos/${photo._id}`}>See</Link>
                             )}

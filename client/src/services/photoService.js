@@ -26,37 +26,43 @@ async function readUserPhotos(id, token) {
     }
 }
 
-async function readPhotoById() {
+// async function updatePhoto() {
 
+// }
+
+async function deletePhoto(id, token) {
+    const config = requestConfig("DELETE", null, token, null); 
+    
+    try {
+        const response = await fetch(`${api}/photos/${id}`, config)
+            .then(res => res.json())
+            .catch(err => err);  
+        return response;
+    } catch(e) { 
+        console.log(e.message);
+    }
 }
 
-async function updatePhoto() {
+// async function likePhoto() {
 
-}
+// }
 
-async function deletePhoto() {
+// async function dislikePhoto() {
 
-}
+// }
 
-async function likePhoto() {
+// async function createPhotoComment() {
 
-}
+// }
 
-async function dislikePhoto() {
+// async function deletePhotoComment() {
 
-}
-
-async function createPhotoComment() {
-
-}
-
-async function deletePhtoComment() {
-
-}
+// }
 
 const photoService = {
     createPhoto,
     readUserPhotos, 
+    deletePhoto,
 }
 
 export default photoService; 
