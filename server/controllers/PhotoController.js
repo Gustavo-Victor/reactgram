@@ -55,15 +55,15 @@ export async function readUserPhotos(req, res) {
     try {
         const photos = await Photo.find({ userId: id }).sort([["createdAt", -1]]).exec();
 
-        if (!photos || photos.length == 0) {
-            res.status(422).json({ errors: ["Not found photos for this user"] });
-            return;
-        }
+        // if (!photos || photos.length == 0) {
+        //     res.status(422).json({ errors: ["Not found photos for this user"] });
+        //     return;
+        // }
 
-        if (id != req.user._id) {
-            res.status(422).json({ errors: ["User cannot access someone else's profile"] })
-            return;
-        }
+        // if (id != req.user._id) {
+        //     res.status(422).json({ errors: ["User cannot access someone else's profile"] })
+        //     return;
+        // }
 
         res.status(200).json(photos);
     } catch (e) {

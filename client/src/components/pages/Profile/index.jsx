@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { uploads } from "../../../utils/config";
 import { useParams, Link } from "react-router-dom";
 import { readUserDetails } from "../../../slices/userSlice";
-import { createUserPhoto, resetMessage } from "../../../slices/photoSlice";
+import { createUserPhoto, readUserPhotos, resetMessage } from "../../../slices/photoSlice";
 import { BsFillEyeFill, BsPencil, BsXLg } from "react-icons/bs";
 import Message from "../../ui/Message";
 import "./style.css";
@@ -48,21 +48,22 @@ export default function Profile() {
         const photoFormData = Object.keys(photoObj).forEach(key => formData.append(key, photoObj[key]));
         formData.append("photo", photoFormData);
 
-        dispatch(createUserPhoto(formData)); 
+        dispatch(createUserPhoto(formData));
         setTitle("");
         setImage("");
 
-        
+
         setTimeout(() => {
-            dispatch(resetMessage()); 
-        }, 2000); 
-        
+            dispatch(resetMessage());
+        }, 2000);
+
 
         console.log(photoObj);
     }
 
     useEffect(() => {
         dispatch(readUserDetails(id));
+        dispatch(readUserPhotos(id));
     }, [dispatch, id]);
 
     if (loading) {
@@ -120,6 +121,28 @@ export default function Profile() {
                     {photoMessage && <Message type="success" text={photoMessage} />}
                 </>
             )}
+            <div className="user-photos">
+                <h2>Photos published</h2>
+                <div className="photos-container">
+                    {photos && photos.map(photo => (
+                        <div key={photo._id} className="photo">
+                            {photo.src && (
+                                <img
+                                    width={100}
+                                    src={`${uploads}/photos/${photo.src}`}
+                                    alt={photo.title}
+                                    title={photo.title} />
+                            )}
+                            {id === currentUser._id ? (
+                                <p>Actions</p>
+                            ) : (
+                                <Link className="btn" to={`/photos/${photo._id}`}>See</Link>
+                            )}
+                        </div>
+                    ))}
+                    {!photoLoading && photos && photos.length == 0 && <p>There are no photos published</p>}
+                </div>
+            </div>
         </div>
     )
 }

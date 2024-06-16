@@ -13,12 +13,17 @@ async function createPhoto(data, token) {
     }
 }
 
-async function readProfilePhotos() {
+async function readUserPhotos(id, token) {
+    const config = requestConfig("GET", null, token, null); 
 
-}
-
-async function readUserPhotos() {
-
+    try {
+        const response = await fetch(`${api}/photos/user/${id}`, config)
+            .then(res => res.json())
+            .catch(err => err); 
+        return response; 
+    } catch(e) {
+        console.log(e.message); 
+    }
 }
 
 async function readPhotoById() {
@@ -51,6 +56,7 @@ async function deletePhtoComment() {
 
 const photoService = {
     createPhoto,
+    readUserPhotos, 
 }
 
 export default photoService; 

@@ -21,6 +21,16 @@ export const createUserPhoto = createAsyncThunk("photo/publish", async(user, thu
     return data; 
 });
 
+export const readUserPhotos = createAsyncThunk("photo/userPhotos", async(id, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token; 
+    const data = await photoService.readUserPhotos(id, token); 
+    
+    // if(data.errors) {
+    //     return thunkAPI.rejectWithValue(data.errors[0]); 
+    // }
+    return data;
+}); 
+
 const photoSlice = createSlice({
     name: "photo", 
     initialState, 
@@ -47,6 +57,16 @@ const photoSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
                 state.photo = {};            
+            })
+            .addCase(readUserPhotos.pending, (state) => {
+                state.loading = true;
+                state.error = false;          
+            })
+            .addCase(readUserPhotos.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.success = true;
+                state.photos = action.payload;                     
             })
     }
 }); 

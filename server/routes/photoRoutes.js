@@ -25,7 +25,8 @@ photoRouter.post("/", checkAuth, uploadConfig.single("src"), photoCreateValidati
 photoRouter.delete("/:id", checkAuth, deletePhoto); 
 photoRouter.get("/", readPhotos); 
 photoRouter.get("/search", checkAuth, searchPhotos); 
-photoRouter.get("/user/:id", checkAuth, readUserPhotos); 
+// photoRouter.get("/user/:id", checkAuth, readUserPhotos); 
+photoRouter.get("/user/:id", readUserPhotos); 
 photoRouter.get("/:id", checkAuth, readPhotoById); 
 photoRouter.put("/:id", checkAuth, photoUpdateValidation(), validate, updatePhoto); 
 photoRouter.put("/like/:id", checkAuth, likePhoto); 
