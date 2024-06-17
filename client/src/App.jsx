@@ -7,6 +7,7 @@ import Register from "./components/pages/Auth/Register";
 import NotFound from "./components/pages/NotFound";
 import EditProfile from "./components/pages/EditProfile";
 import Profile from "./components/pages/Profile";
+import Photo from "./components/pages/Photo";
 import Header from "./components/ui/Header";
 import Container from "./components/ui/Container";
 import Footer from "./components/ui/Footer";
@@ -30,6 +31,7 @@ function App() {
           <Route path="/register" element={authenticated ? <Navigate to="/" /> : <Register />} />
           <Route path="/profile" element={authenticated ? <EditProfile /> : <Navigate to="/login" />} />
           <Route path="/users/:id" element={authenticated ? <Profile /> : <Navigate to="/login" />} />
+          <Route path="/photos/:id" element={authenticated ? <Photo /> : <Navigate to="/login" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
