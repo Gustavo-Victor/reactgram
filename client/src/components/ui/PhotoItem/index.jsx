@@ -15,7 +15,7 @@ export default function PhotoItem({photo}) {
                     src={`${uploads}/photos/${photo.src}`} />
             }
             <h2>{photo.title}</h2>
-            <p className="photo-autho">
+            <p className="photo-author">
                 Posted by: <Link to={`/users/${photo.userId}`}>{photo.userName}</Link>
             </p>
         </div>

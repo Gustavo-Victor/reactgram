@@ -59,6 +59,16 @@ export const deleteUserPhoto = createAsyncThunk("photo/delete", async(id, thunkA
     return data;
 }); 
 
+export const togglePhotoLike = createAsyncThunk("photo/like", async(id, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token; 
+    const data = await photoService.photoLike(id, token); 
+
+    if(data.errors){
+        return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+    return data;
+})
+
 const photoSlice = createSlice({
     name: "photo", 
     initialState, 
@@ -147,6 +157,46 @@ const photoSlice = createSlice({
                 state.error = null;
                 state.success = true;     
                 state.photo = action.payload;          
+            })
+            .addCase(togglePhotoLike.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.success = true;      
+                state.message = action.payload.message;  
+                
+                if(state.photo.likes) {
+                    if(!state.photo.likes.includes(action.payload.userId)) {
+                        state.photo.likes.push(action.payload.userId); 
+                    } else {
+                        state.photo.likes = state.photo.likes.filter(id => id != action.payload.userId); 
+                    }
+                }
+
+                state.photos = state.photos.map((photo) => {
+                    if(photo._id == action.payload._id) {
+                        if(!photo.likes.includes(action.payload.userId)) {
+                            return {
+                                ...photo, 
+                                likes: [...photo.likes, action.payload.userId]
+                            }                            
+                        } else {
+                            let index = photo.likes.indexOf(action.payload.userId); 
+                            const likesCopy =  [...photo.likes];                             
+                            if(index > -1) {
+                                likesCopy.splice(index, 1); 
+                            }           
+                            return {
+                                ...photo, 
+                                likes: [...likesCopy]
+                            }             
+                        }
+                    }
+                    return photo; 
+                });
+            })
+            .addCase(togglePhotoLike.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;           
             })
     }
 }); 

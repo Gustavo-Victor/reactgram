@@ -14,7 +14,7 @@ import {
     updatePhoto,
     searchPhotos, 
     deletePhotoComment,
-    dislikePhoto, 
+    // dislikePhoto, 
 } from "../controllers/PhotoController.js"; 
 
 
@@ -30,7 +30,7 @@ photoRouter.get("/user/:id", readUserPhotos);
 photoRouter.get("/:id", checkAuth, readPhotoById); 
 photoRouter.put("/:id", checkAuth, photoUpdateValidation(), validate, updatePhoto); 
 photoRouter.put("/like/:id", checkAuth, likePhoto); 
-photoRouter.put("/dislike/:id", checkAuth, dislikePhoto); 
+// photoRouter.put("/dislike/:id", checkAuth, dislikePhoto); 
 photoRouter.put("/comment/:id", checkAuth, createCommentValidation(), validate, createPhotoComment); 
 photoRouter.delete("/:id/:comment_id", checkAuth, deletePhotoComment); 
 

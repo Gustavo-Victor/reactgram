@@ -5,11 +5,11 @@
 }
 
 #home .photo-item h2 {
-    margin-bottom: .2rem;
+    margin-bottom: 1rem;
 }
 
 .photo-author {
-    text-align: left;
+    text-align: left !important;
 }
 
 .photo-author a {

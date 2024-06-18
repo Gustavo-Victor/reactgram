@@ -176,7 +176,7 @@ export async function likePhoto(req, res) {
     if (!id) {
         res.status(422).json({ errors: ["Photo ID is required."] });
         return;
-    }
+    } 
 
     try {
         const photo = await Photo.findById(id);
@@ -191,8 +191,16 @@ export async function likePhoto(req, res) {
         // }
 
         if (photo.likes.includes(currentUser._id)) {
-            res.status(422).json({ errors: ["User already liked the photo"] });
-            return;
+            const updatedLikes = photo.likes.filter(userId => String(userId) != String(currentUser._id)); 
+            photo.likes = [...updatedLikes]; 
+            await photo.save(); 
+
+            return res.status(200).json({
+                _id: photo._id,
+                userId: currentUser._id,
+                likes: photo.likes,
+                message: "Photo successfully disliked"
+            });
         }
 
         photo.likes.push(currentUser._id);
@@ -211,43 +219,43 @@ export async function likePhoto(req, res) {
     }
 }
 
-export async function dislikePhoto(req, res) {
-    const { id } = req.params;
-    const currentUser = req.user;
+// export async function dislikePhoto(req, res) {
+//     const { id } = req.params;
+//     const currentUser = req.user;
 
-    if (!id) {
-        res.status(422).json({ errors: ["Photo ID is required."] });
-        return;
-    }
+//     if (!id) {
+//         res.status(422).json({ errors: ["Photo ID is required."] });
+//         return;
+//     }
 
-    try {
-        const photo = await Photo.findById(id);
-        if (!photo) {
-            res.status(422).json({ errors: ["Photo not found"] });
-            return;
-        }
+//     try {
+//         const photo = await Photo.findById(id);
+//         if (!photo) {
+//             res.status(422).json({ errors: ["Photo not found"] });
+//             return;
+//         }
 
-        if (!photo.likes.includes(currentUser._id)) {
-            res.status(422).json({ errors: ["User haven't liked the photo"] });
-            return;
-        }
+//         if (!photo.likes.includes(currentUser._id)) {
+//             res.status(422).json({ errors: ["User haven't liked the photo"] });
+//             return;
+//         }
 
-        const updatedLikes = photo.likes.filter(userId => String(userId) != String(currentUser._id)); 
-        photo.likes = [...updatedLikes]; 
-        await photo.save();
+//         const updatedLikes = photo.likes.filter(userId => String(userId) != String(currentUser._id)); 
+//         photo.likes = [...updatedLikes]; 
+//         await photo.save();
 
-        res.status(200).json({
-            _id: photo._id,
-            userId: currentUser._id,
-            updatedLikes, 
-            message: "Photo successfully disliked"
-        });
+//         res.status(200).json({
+//             _id: photo._id,
+//             userId: currentUser._id,
+//             updatedLikes, 
+//             message: "Photo successfully disliked"
+//         });
 
-    } catch (e) {
-        console.log(e.message);
-        res.status(422).json({ errors: ["Error. Try again later"] });
-    }
-}
+//     } catch (e) {
+//         console.log(e.message);
+//         res.status(422).json({ errors: ["Error. Try again later"] });
+//     }
+// }
 
 export async function createPhotoComment(req, res) {
     const { id } = req.params;
