@@ -67,7 +67,21 @@ export const togglePhotoLike = createAsyncThunk("photo/like", async(id, thunkAPI
         return thunkAPI.rejectWithValue(data.errors[0]);
     }
     return data;
-})
+}); 
+
+export const createPhotoComment = createAsyncThunk("photo/comment", async(photoData, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoService.createPhotoComment(photoData._id, { text: photoData.text }, token); 
+
+    if(data.errors) {
+        return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+    return data; 
+}); 
+
+export const deletePhotoComment = createAsyncThunk("photo/uncomment", async() => {
+
+}); 
 
 const photoSlice = createSlice({
     name: "photo", 
@@ -198,6 +212,22 @@ const photoSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;           
             })
+            .addCase(createPhotoComment.pending, (state) => {
+                state.loading = true; 
+                state.error = false; 
+            })
+            .addCase(createPhotoComment.fulfilled, (state, action) => {
+                state.loading = false; 
+                state.error = null;
+                state.success = true; 
+                state.message = action.payload.message; 
+                state.photo.comments.push(action.payload.comment); 
+            })
+            .addCase(createPhotoComment.rejected, (state, action) => {
+                state.loading = false; 
+                state.error = action.payload; 
+            });  
+            
     }
 }); 
 

@@ -80,13 +80,22 @@ async function photoLike(id, token) {
 }
 
 
-// async function createPhotoComment() {
+async function createPhotoComment(id, data, token) {
+    const config = requestConfig("PUT", data, token, null); 
 
-// }
+    try {
+        const response = await fetch(`${api}/photos/comment/${id}`, config)
+            .then(res => res.json())
+            .catch(err => err);
+        return response; 
+    } catch(e) {
+        console.log(e);
+    }
+}
 
-// async function deletePhotoComment() {
+async function deletePhotoComment() {
 
-// }
+}
 
 const photoService = {
     createPhoto,
@@ -95,6 +104,8 @@ const photoService = {
     deletePhoto,
     updatePhoto,
     photoLike,
+    createPhotoComment,
+    deletePhotoComment,
 }
 
 export default photoService; 

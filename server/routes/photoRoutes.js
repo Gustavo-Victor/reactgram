@@ -32,6 +32,6 @@ photoRouter.put("/:id", checkAuth, photoUpdateValidation(), validate, updatePhot
 photoRouter.put("/like/:id", checkAuth, likePhoto); 
 // photoRouter.put("/dislike/:id", checkAuth, dislikePhoto); 
 photoRouter.put("/comment/:id", checkAuth, createCommentValidation(), validate, createPhotoComment); 
-photoRouter.delete("/:id/:comment_id", checkAuth, deletePhotoComment); 
+photoRouter.delete("/comment/:id/:comment_id", checkAuth, deletePhotoComment); 
 
 export default photoRouter; 

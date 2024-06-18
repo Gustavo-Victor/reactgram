@@ -281,18 +281,21 @@ export async function createPhotoComment(req, res) {
             return;
         }
 
-        photo.comments.push({
+        const commentObj = {
             commentId: new Types.ObjectId(),
             text,
             userId: user._id,
             userName: user.name,
             userImage: user.profileImage,
-        });
+        }
 
+        photo.comments.push(commentObj);
         await photo.save();
+
         res.status(200).json({
             _id: photo._id,
             comments: photo.comments,
+            comment: commentObj,
             message: "A comment was added to the photo"
         })
 
