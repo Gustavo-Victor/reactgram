@@ -9,8 +9,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: auto;
-    min-height: 60px;
+    height: 60px;
 }
 
 #nav-list {
@@ -34,7 +33,11 @@
 
 #search-form {
     position: relative;
+    top: 0; 
     width: 20%;
+    height: auto; 
+    min-height: 60%;
+    top: .2rem;
 }
 
 #search-form svg {
@@ -49,5 +52,7 @@
     border-radius: 5px;
     width: 100%;
     font-size: 0.9rem;
+    display: block;
+    height: 100% !important;
 
 }

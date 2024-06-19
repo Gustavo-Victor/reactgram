@@ -21,6 +21,12 @@ export const createUserPhoto = createAsyncThunk("photo/publish", async(user, thu
     return data; 
 });
 
+export const readAllPhotos = createAsyncThunk("photo/getall", async(_, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token; 
+    const data = await photoService.readAllPhotos(token); 
+    return data;
+});
+
 export const readUserPhotos = createAsyncThunk("photo/userPhotos", async(id, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token; 
     const data = await photoService.readUserPhotos(id, token); 
@@ -247,8 +253,17 @@ const photoSlice = createSlice({
             .addCase(deletePhotoComment.rejected, (state, action) => {
                 state.loading = false; 
                 state.error = action.payload; 
-            });   
-            
+            })   
+            .addCase(readAllPhotos.pending, (state) => {
+                state.loading = true; 
+                state.error = false; 
+            })
+            .addCase(readAllPhotos.fulfilled, (state, action) => {
+                state.loading = false; 
+                state.error = null;
+                state.success = true;  
+                state.photos = [...action.payload];  
+            })
     }
 }); 
 

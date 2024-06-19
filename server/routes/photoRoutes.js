@@ -23,7 +23,7 @@ const photoRouter = Router();
 
 photoRouter.post("/", checkAuth, uploadConfig.single("src"), photoCreateValidation(), validate, createPhoto);
 photoRouter.delete("/:id", checkAuth, deletePhoto); 
-photoRouter.get("/", readPhotos); 
+photoRouter.get("/", checkAuth, readPhotos); 
 photoRouter.get("/search", checkAuth, searchPhotos); 
 // photoRouter.get("/user/:id", checkAuth, readUserPhotos); 
 photoRouter.get("/user/:id", readUserPhotos); 

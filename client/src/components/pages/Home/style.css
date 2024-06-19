@@ -1,0 +1,21 @@
+#home {
+    width: 70%; 
+    max-width: 900px;
+    margin: 0 auto; 
+    
+}
+
+#home .btn {
+    display: block; 
+    max-width: 110px;
+    text-align: center;
+    margin: .5rem 0 2rem 0; 
+}
+
+.no-photos {
+    text-align: center;
+}
+
+.no-photos a {
+    color: #0094f6; 
+}

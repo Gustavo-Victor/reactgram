@@ -13,6 +13,19 @@ async function createPhoto(data, token) {
     }
 }
 
+async function readAllPhotos(token) {
+    const config = requestConfig("GET", null, token); 
+
+    try {
+        const response = await fetch(`${api}/photos`, config)
+            .then(res => res.json())
+            .catch(err => err);  
+        return response;
+    } catch(e) {   
+        console.log(e.message);
+    }
+}
+
 async function readUserPhotos(id, token) {
     const config = requestConfig("GET", null, token, null); 
 
@@ -108,6 +121,7 @@ async function deletePhotoComment(photoId, commentId, token) {
 
 const photoService = {
     createPhoto,
+    readAllPhotos,
     readUserPhotos,
     readPhoto, 
     deletePhoto,
