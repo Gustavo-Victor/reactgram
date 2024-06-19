@@ -93,8 +93,17 @@ async function createPhotoComment(id, data, token) {
     }
 }
 
-async function deletePhotoComment() {
-
+async function deletePhotoComment(photoId, commentId, token) {
+    const config = requestConfig("DELETE", null, token, null);
+    
+    try {
+        const response = await fetch(`${api}/photos/comment/${photoId}/${commentId}`, config)
+            .then(res => res.json()) 
+            .catch(err => err); 
+        return response; 
+    } catch(e) {
+        console.log(e.message);
+    }
 }
 
 const photoService = {

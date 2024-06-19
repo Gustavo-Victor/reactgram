@@ -340,12 +340,14 @@ export async function deletePhotoComment(req, res) {
         //     return ; 
         // }
         let user = null;
+        let deletedComment = null; 
         const updatedComments = photo.comments.filter(comment => {
             if (String(comment.commentId) == String(comment_id)) {
                 user = {
                     _id: comment.userId,
                     name: comment.userName
                 }
+                deletedComment = comment;
             }
             return String(comment.commentId) != String(comment_id)
         });
@@ -361,6 +363,7 @@ export async function deletePhotoComment(req, res) {
         res.status(200).json({
             _id: id,
             commentId: comment_id,
+            comment: deletedComment,
             updatedComments,
             message: "Comment succesfully deleted"
         });

@@ -79,8 +79,14 @@ export const createPhotoComment = createAsyncThunk("photo/comment", async(photoD
     return data; 
 }); 
 
-export const deletePhotoComment = createAsyncThunk("photo/uncomment", async() => {
-
+export const deletePhotoComment = createAsyncThunk("photo/uncomment", async(photoData, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoService.deletePhotoComment(photoData.photoId, photoData.commentId, token);
+    
+    if(data.errors) {
+        return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+    return data; 
 }); 
 
 const photoSlice = createSlice({
@@ -226,7 +232,22 @@ const photoSlice = createSlice({
             .addCase(createPhotoComment.rejected, (state, action) => {
                 state.loading = false; 
                 state.error = action.payload; 
-            });  
+            }) 
+            .addCase(deletePhotoComment.pending, (state) => {
+                state.loading = true; 
+                state.error = false; 
+            })
+            .addCase(deletePhotoComment.fulfilled, (state, action) => {
+                state.loading = false; 
+                state.error = null;
+                state.success = true; 
+                state.message = action.payload.message; 
+                state.photo.comments = [...action.payload.updatedComments]; 
+            })
+            .addCase(deletePhotoComment.rejected, (state, action) => {
+                state.loading = false; 
+                state.error = action.payload; 
+            });   
             
     }
 }); 

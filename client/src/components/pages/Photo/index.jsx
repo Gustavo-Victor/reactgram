@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { useResetComponentMessage } from "../../../hooks/useResetComponentMessage";
 import { uploads } from "../../../utils/config";
-import { readPhotoById, togglePhotoLike, createPhotoComment } from "../../../slices/photoSlice";
+import { readPhotoById, togglePhotoLike, createPhotoComment, deletePhotoComment } from "../../../slices/photoSlice";
 import Message from "../../ui/Message"; 
 import PhotoItem from "../../ui/PhotoItem";
 import LikeContainer from "../../ui/LikeContainer";
 import "./style.css"; 
+import { BsXLg } from "react-icons/bs";
 
 
 export default function Photo() {
@@ -35,8 +36,15 @@ export default function Photo() {
         resetMessae(dispatch); 
     }
 
-    const handleDeleteComment = () => {
-
+    const handleDeleteComment = (photoId, commentId) => {
+        console.log("photoID: ", photoId); 
+        console.log("commentID: ", commentId); 
+        const photoData = {
+            photoId, 
+            commentId,
+        }
+        dispatch(deletePhotoComment(photoData)); 
+        resetMessae(dispatch);
     }
 
     useEffect(() => {
@@ -92,6 +100,11 @@ export default function Photo() {
                             </Link>
                         </div>
                         <p>{comment.text}</p>
+                        {authUser._id == comment.userId && (
+                            <div className="actions">
+                                <BsXLg onClick={() => handleDeleteComment(photo._id, comment.commentId)} />
+                            </div>
+                        )}
                     </div>
                 )))}
             </div>
