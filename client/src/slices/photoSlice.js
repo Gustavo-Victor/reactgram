@@ -95,6 +95,12 @@ export const deletePhotoComment = createAsyncThunk("photo/uncomment", async(phot
     return data; 
 }); 
 
+export const searchPhotos = createAsyncThunk("photo/search", async(query, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token; 
+    const data = await photoService.searchPhotos(query, token); 
+    return data;
+})
+
 const photoSlice = createSlice({
     name: "photo", 
     initialState, 
@@ -259,6 +265,16 @@ const photoSlice = createSlice({
                 state.error = false; 
             })
             .addCase(readAllPhotos.fulfilled, (state, action) => {
+                state.loading = false; 
+                state.error = null;
+                state.success = true;  
+                state.photos = [...action.payload];  
+            })
+            .addCase(searchPhotos.pending, (state) => {
+                state.loading = true; 
+                state.error = false; 
+            })
+            .addCase(searchPhotos.fulfilled, (state, action) => {
                 state.loading = false; 
                 state.error = null;
                 state.success = true;  

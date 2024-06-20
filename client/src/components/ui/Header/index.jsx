@@ -17,6 +17,7 @@ import "./style.css";
 export default function Header() {
     const { authenticated } = useAuth();
     const { user } = useSelector(state => state.auth);
+    const [query, setQuery] = useState(""); 
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
 
@@ -26,19 +27,30 @@ export default function Header() {
         navigate("/login"); 
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+        
+        if(query) {
+            navigate(`/search?q=${query}`);
+            setQuery("");     
+        }
+    }
+
 
     return (
         <header id="main-header">
             <nav id="nav">
                 <Link to="/">ReactGram</Link>
-                <form action="#" id="search-form">
+                <form action="#" id="search-form" onSubmit={handleSubmit}>
                     <BsSearch />
                     <input
                         type="search"
                         name="search"
                         id="search"
                         maxLength={50}
-                        placeholder="Type something..." />
+                        placeholder="Type something..."
+                        value={query || ""}
+                        onChange={e => setQuery(e.target.value)} />
                 </form>
                 <ul id="nav-list">
                     {authenticated ? (

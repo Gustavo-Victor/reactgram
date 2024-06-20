@@ -29,7 +29,7 @@ export default function Home() {
     //     }
     // }, [photos])
 
-    if(loading) {
+    if(loading && !photos || photos.length == 0) {
         return <p>Loading...</p>
     }
 
@@ -45,7 +45,7 @@ export default function Home() {
                     <Link className="btn" to={`/photos/${photo._id}`}>See more</Link>
                 </div>                
             ))}
-            {photos && photos.length == 0 && (
+            {!loading && photos.length == 0 && (
                 <h2 className="no-photos">There are no photos published. <Link to={`/users/${user._id}`}>Click here</Link></h2>
             )}
         </div>
