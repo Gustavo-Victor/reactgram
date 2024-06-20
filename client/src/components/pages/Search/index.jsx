@@ -38,8 +38,8 @@ export default function Search() {
 
 
     return (
-        <div id="search-container">
-            <h2>Search for {`"`}{userQueryText}{`"`}</h2>
+        <div id="search-container" className="photos-container">
+            <h2 className="title">Search for {`"`}{userQueryText}{`"`}</h2>
             {!loading && photos && photos.length > 0 && photos.map((photo) => (
                 <div key={photo._id}>
                     <PhotoItem photo={photo} />

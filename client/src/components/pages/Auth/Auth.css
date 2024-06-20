@@ -32,3 +32,11 @@
     font-weight: bold;
     color: #0094f6; 
 }
+
+
+@media only screen and (max-width: 400px) {
+    #login h2, 
+    #register h2 {
+        font-size: 1.8rem; 
+    }    
+}

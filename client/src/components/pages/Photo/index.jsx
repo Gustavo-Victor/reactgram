@@ -7,8 +7,8 @@ import { readPhotoById, togglePhotoLike, createPhotoComment, deletePhotoComment 
 import Message from "../../ui/Message"; 
 import PhotoItem from "../../ui/PhotoItem";
 import LikeContainer from "../../ui/LikeContainer";
-import "./style.css"; 
 import { BsXLg } from "react-icons/bs";
+import "./style.css"; 
 
 
 export default function Photo() {
@@ -81,7 +81,11 @@ export default function Photo() {
                         maxLength={50}
                         placeholder="Enter a comment..."
                         ></textarea>
-                    <button type="submit" disabled={loading}>
+                    <button 
+                        className="custom-form-btn"
+                        type="submit" 
+                        disabled={loading}
+                        >
                         {loading ? "Loading..." : "Comment"}
                     </button>                        
                 </form>

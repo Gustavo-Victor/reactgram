@@ -1,17 +1,12 @@
 #search-container {
-    width: 60%;
-    max-width: 900px; 
-    margin: 0 auto; 
-    margin-bottom: 3rem; 
+    margin-bottom: 3rem;
 }
 
-#search-container .btn {
-    display: block;
-    max-width: 110px;
-    text-align: center;
-    margin-bottom: 2rem;
+#search-container .title {
+    text-align: center !important;
+    width: 100%;
 }
 
 #search-container .no-photos {
-    margin: 2rem 0 ;
+    margin: 2rem 0;
 }

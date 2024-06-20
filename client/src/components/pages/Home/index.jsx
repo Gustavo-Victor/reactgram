@@ -5,7 +5,7 @@ import { readAllPhotos, togglePhotoLike } from "../../../slices/photoSlice";
 import { useResetComponentMessage } from "../../../hooks/useResetComponentMessage"; 
 import LikeContainer from "../../ui/LikeContainer";
 import PhotoItem from "../../ui/PhotoItem";  
-import "./style.css"; 
+// import "./style.css"; 
 
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
     }
 
     return (
-        <div id="home">
+        <div id="home" className="photos-container">
             {photos && photos.length > 0 && photos.map((photo) => (
                 <div key={photo._id}>
                     <PhotoItem photo={photo} />

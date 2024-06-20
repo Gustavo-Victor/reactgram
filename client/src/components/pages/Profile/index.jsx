@@ -20,7 +20,6 @@ export default function Profile() {
     const { user, loading } = useSelector(state => state.user);
     const { user: currentUser } = useSelector(state => state.auth);
     const {
-        photo,
         photos,
         loading: photoLoading,
         error: photoError,
@@ -119,83 +118,86 @@ export default function Profile() {
 
     return (
         <div id="profile">
-            <div className="profile-header">
-                {user.profileImage && (
-                    <img
-                        width={100}
-                        alt={user.name}
-                        title={user.name}
-                        src={`${uploads}/users/${user.profileImage}`} />
-                )}
-                <div className="profile-description">
-                    <h2>{user.name}</h2>
-                    <p>{user.bio}</p>
-                </div>
+            <div className="profile-info">
+                <div className="profile-header">
+                    {user.profileImage && (
+                        <img
+                            width={100}
+                            alt={user.name}
+                            title={user.name}
+                            src={`${uploads}/users/${user.profileImage}`} />
+                    )}
+                    <div className="profile-description">
+                        <h2>{user.name}</h2>
+                        <p>{user.bio}</p>
+                    </div>
 
-            </div>
-            {id === currentUser._id && (
-                <>
-                    <div className="new-photo" ref={newPhotoForm}>
-                        <h3>Share your best moments</h3>
-                        <form onSubmit={handleSubmit}>
-                            <label>
-                                <span>Title: </span>
-                                <input
+                </div>
+                {id === currentUser._id && (
+                    <>
+                        <div className="new-photo" ref={newPhotoForm}>
+                            <h3>Share some moment of yours</h3>
+                            <form onSubmit={handleSubmit}>
+                                <label>
+                                    <span>Title: </span>
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        id="title"
+                                        value={title || ""}
+                                        onChange={handleTitle}
+                                        placeholder="Title" />
+                                </label>
+                                <label>
+                                    <span>Image: </span>
+                                    <input
+                                        type="file"
+                                        name="src"
+                                        id="src"
+                                        onChange={handleFile} />
+                                </label>
+                                <button
+                                    className="custom-form-btn"
+                                    type="submit"
+                                    id="create-photo-btn"
+                                    disabled={photoLoading}
+                                >{photoLoading ? "Loading..." : "Post"}
+                                </button>
+                            </form>
+                        </div>
+                        <div className="edit-photo hide" ref={editPhotoForm}>
+                            <p>Editing: </p>
+                            {editImage && (
+                                <img 
+                                    alt={editTitle}
+                                    src={`${uploads}/photos/${editImage}`}
+                                    />
+                            )}
+                            <form onSubmit={handleEditPhoto}>
+                                <input 
                                     type="text"
-                                    name="title"
-                                    id="title"
-                                    value={title || ""}
-                                    onChange={handleTitle}
-                                    placeholder="Title" />
-                            </label>
-                            <label>
-                                <span>Image: </span>
-                                <input
-                                    type="file"
-                                    name="src"
-                                    id="src"
-                                    onChange={handleFile} />
-                            </label>
-                            <button
-                                type="submit"
-                                id="create-photo-btn"
-                                disabled={photoLoading}
-                            >{photoLoading ? "Loading..." : "Post"}
-                            </button>
-                        </form>
-                    </div>
-                    <div className="edit-photo hide" ref={editPhotoForm}>
-                        <p>Editing: </p>
-                        {editImage && (
-                            <img 
-                                alt={editTitle}
-                                src={`${uploads}/photos/${editImage}`}
-                                 />
-                        )}
-                        <form onSubmit={handleEditPhoto}>
-                            <input 
-                                type="text"
-                                placeholder="Enter a title"
-                                value={editTitle || ""}
-                                onChange={(e) => setEditTitle(e.target.value)}
-                                 />
-                            <button 
-                                type="submit" 
-                                disabled={photoLoading}
-                                >{photoLoading ? "Loading..." : "Edit"}
-                            </button>
-                            <button 
-                                type="reset"
-                                onClick={handleCancelEdit} 
-                                className="cancel-btn">
-                                    Cancel
-                            </button>
-                        </form>
-                    </div>
-                    {photoError && <Message type="error" text={photoError} />}
-                    {photoMessage && <Message type="success" text={photoMessage} />}
-                </>
-            )}
+                                    placeholder="Enter a title"
+                                    value={editTitle || ""}
+                                    onChange={(e) => setEditTitle(e.target.value)}
+                                    />
+                                <button 
+                                    type="submit" 
+                                    disabled={photoLoading}
+                                    >{photoLoading ? "Loading..." : "Edit"}
+                                </button>
+                                <button 
+                                    type="reset"
+                                    onClick={handleCancelEdit} 
+                                    className="cancel-btn">
+                                        Cancel
+                                </button>
+                            </form>
+                        </div>
+                        {photoError && <Message type="error" text={photoError} />}
+                        {photoMessage && <Message type="success" text={photoMessage} />}
+                    </>
+                )}
+            </div>
             <div className="user-photos">
                 <h2>Photos published</h2>
                 <div className="photos-container">

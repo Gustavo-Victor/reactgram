@@ -1,6 +1,11 @@
 #profile {
-    width: 700px;
-    max-width: 50%;
+    width: 100%;
+}
+
+.profile-info {
+    max-width: 450px;
+    /* border: 1px solid blue;  */
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -11,7 +16,10 @@
     padding: 1rem;
     flex-wrap: wrap;
     border-bottom: 1px solid #363636;
-    ;
+}
+
+.profile-header p {
+    color: #999;
 }
 
 .profile-header img {
@@ -31,15 +39,40 @@
     margin-bottom: 1.5rem;
 }
 
-.photos-container {
+/* 
+.new-photo form button {
+    width: 100%;
+    max-width: 140px; 
+    display: block; 
+    text-align: center;
+    margin: 0 auto; 
+
+} */
+
+.new-photo h3 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.user-photos {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* border: 1px solid blue;  */
+}
+
+.user-photos .photos-container {
     display: flex;
     flex-wrap: wrap;
-
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.3rem;
 }
 
 .photo {
-    width: 31%;
-    margin: 0.3%;
+    min-width: 33%;
+    max-width: 250px;
+    flex: 1;
 }
 
 .photo img {
@@ -47,10 +80,10 @@
 }
 
 .actions {
-    display: flex; 
+    display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    padding: 10px; 
+    padding: 10px;
 }
 
 .actions svg {
@@ -62,7 +95,22 @@
 }
 
 .edit-photo img {
-    width: 100%; 
-    margin-bottom: 1rem; 
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
+
+@media only screen and (max-width: 630px) {
+    .photo {
+        min-width: 50%;
+        max-width: 100%;
+        flex: 1;
+    }
+}
+
+/* @media only screen and (max-width: 400px) { 
+    .new-photo form button { 
+        width: 100%; 
+        max-width: 100%;
+    }
+} */
