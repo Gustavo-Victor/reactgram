@@ -1,7 +1,7 @@
 const { API_URI, UPLOADS_URI } = import.meta.env;
 
-export const api = API_URI;
-export const uploads = UPLOADS_URI;
+export const api = API_URI || "https://reactgram-4yia.onrender.com/api";
+export const uploads = UPLOADS_URI || "https://reactgram-4yia.onrender.com/uploads";
 
 
 export const requestConfig = (method, data, token = null, image = null) => {
