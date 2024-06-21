@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "predeploy": "cd ./client && npm run build && cd ..",
+    "predeploy": "cd ./client && npm install && npm run build && cd ..",
     "start": "node index.js",
     "server": "nodemon index.js localhost 4000"
   },
