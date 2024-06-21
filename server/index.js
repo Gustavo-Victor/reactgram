@@ -21,7 +21,7 @@ const { PORT: port } = process.env;
 
 
 // front-end host
-const frontEndHost = "http://localhost:5173" || "http://localhost:5173"; 
+const frontEndHost = "https://reactgram-alpha.vercel.app/"; 
 
 
 // dirname
@@ -29,7 +29,7 @@ const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 
 // middlewares
-app.use(cors({credentials: true, origin: frontEndHost})); 
+app.use(cors({credentials: true, origin: frontEndHost || "http://localhost:5173"})); 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); 
