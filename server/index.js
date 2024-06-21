@@ -29,7 +29,7 @@ const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 
 // middlewares
-app.use(cors({credentials: true, origin: frontEndHost || "http://localhost:5173"})); 
+app.use(cors({credentials: true, origin: frontEndHost})); 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); 
@@ -38,5 +38,5 @@ app.use("/", Router);
 
 // port config 
 app.listen(port || 4000, () => {
-    console.log(`App is running on http://localhost:${port}`);
+    console.log(`App is running on port: ${port}`);
 });  
