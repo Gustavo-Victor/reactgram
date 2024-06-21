@@ -4,8 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "predeploy": "cd ./client && npm run build && cd ..",
     "start": "node index.js",
-    "dev": "nodemon index.js localhost 4000"
+    "server": "nodemon index.js localhost 4000"
   },
   "keywords": [],
   "author": "Gustavo Victor <gguvictor999@outlook.com> (https://github.com/Gustavo-Victor/)",

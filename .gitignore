@@ -1,5 +1,5 @@
-/server/node_modules
-/client/node_modules 
-
-*.txt 
-*.env 
+node_modules/
+.env
+.env.local
+*.txt
+DS_Store
