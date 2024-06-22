@@ -77,9 +77,9 @@ Um guia básico sobre como instalar e executar o projeto em modo de desenvolvime
 1. Clone o projeto ou faça download do ZIP: 
 
 ```bash
-    # abra o terminal (Git bash) e digite 
+    # abra o terminal (Git Bash de preferência) e digite 
     # não precisa fazer isso se já tiver feito download do projeto (nesse caso, só extraia a pasta e entre nela)
-    $ git clone https://github.com/Gustavo-Victor/get-a-pet.git
+    $ git clone https://github.com/Gustavo-Victor/reactgram.git
 ```
 
 2. Entre na pasta do projeto:
