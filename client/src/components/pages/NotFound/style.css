@@ -1,0 +1,21 @@
+#not-found {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    gap: 1rem;
+    min-height: 60vh; 
+}
+
+#not-found p {
+    color: #999;
+}
+
+#not-found .btn {
+    display: inline-block;
+    max-width: 120px;
+    text-align: center;
+    margin: 1rem auto 0; 
+    padding: 12px 16px; 
+}
